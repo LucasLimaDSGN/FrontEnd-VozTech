@@ -104,7 +104,7 @@ function ListaPostagem() {
                  <Avatar
               src={usuario.foto}
               style={{ border: '1px solid black' }}
-              alt="" className="fotoPost"
+              alt="" className="fotoPosts"
             />
               <Typography variant="body2" component="p">
               Postado por: {post.usuario?.nome}
