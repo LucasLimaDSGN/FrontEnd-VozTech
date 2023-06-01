@@ -29,7 +29,7 @@ function Navbar() {
             <Box style={{ cursor: 'pointer' }}>
 
               <Typography variant="h5" color="inherit" className='fonte'>
-                VozTech
+                VozTechh
               </Typography>
 
             </Box>
