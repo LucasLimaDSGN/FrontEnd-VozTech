@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Sidebar from './componentes/estaticos/sidebar/Sidebar'
 import MinhasPostagens from './componentes/postagens/meusposts/MinhasPostagens';
+import Sobrenos from './paginas/sobrenos/Sobrenos';
+import Parceiros from './paginas/parceiros/Parceiros';
 //import Parceiros from './paginas/parceiros/Parceiros';
 
 function App() {
@@ -27,8 +29,8 @@ function App() {
     <ToastContainer/>
     <Router>
       <Navbar />
-      <Sidebar />
-      <div style={{ minHeight: '100vh' }}>
+      {/* <Sidebar /> */}
+      <div className="apptsx" style={{ minHeight: '100vh', width: 'calc(100vw-200px)', marginLeft: 'auto' }}>
         <Routes>
 
           <Route path="/" element={<Login />} />
@@ -45,6 +47,8 @@ function App() {
           <Route path="/deletarTema/:id" element={<DeletarTema />} />
           <Route path='/perfil' element={<Perfil />} />
           <Route path='/meusPosts' element={<MinhasPostagens />} />
+          <Route path='/sobrenos' element={<Sobrenos />} />
+          <Route path='/parceiros' element={<Parceiros/>} />
 
         </Routes>
       </div>

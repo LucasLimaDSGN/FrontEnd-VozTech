@@ -1,4 +1,4 @@
-"".box1 {
+.box1 {
     background-color: #654236;
     height: 50px;
 }
@@ -14,11 +14,14 @@
 }
 
 .footer{
-    background-color: #AC593A;
+    background-color: #654236;
 }
 
 .iconesFooter{
-    background-color: #AC593A;
+    margin-right: 20px;
+    margin-top: 20px;
+    color: #FFF5EB;
+    background-color:#654236;
     justify-content: center;
 }
 

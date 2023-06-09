@@ -10,6 +10,3 @@ interface User {
 }
 
 export default User;
-
-import { Postagem } from "./Postagem";
-

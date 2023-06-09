@@ -48,6 +48,7 @@ function CadastroPost() {
         id: 0,
         titulo: '',
         texto: '',
+        foto:'',
         data: '',
         tema: null,
         usuario: null
@@ -104,7 +105,7 @@ const [usuario, setUsuario] = useState<User>({
 
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-
+;
         if (id !== undefined) {
             put(`/postagens`, postagem, setPostagem, {
                 headers: {
@@ -151,6 +152,7 @@ const [usuario, setUsuario] = useState<User>({
                 <Typography variant="h3" color="textSecondary" component="h1" align="center" >
                 {id !== undefined ? "Atualize " : "Cadastre "} sua postagem
                     </Typography>
+                    {/* <TextField value={postagem.foto} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPostagem(e)} id="foto" label="Foto" name="foto" variant="outlined" margin="normal" fullWidth /> */}
                 <TextField value={postagem.titulo} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPostagem(e)} helperText="Mínino 5 caracteres" id="titulo" label="titulo" variant="outlined" name="titulo" margin="normal" fullWidth />
                 <TextField value={postagem.texto} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPostagem(e)} helperText="Mínino 10 caracteres" id="texto" label="texto" name="texto" variant="outlined" margin="normal" fullWidth />
 
@@ -171,7 +173,7 @@ const [usuario, setUsuario] = useState<User>({
                         }
                     </Select>
                     <FormHelperText>Escolha um tema para a postagem</FormHelperText>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" className="btnModal">
                         Finalizar
                     </Button>
                 </FormControl>

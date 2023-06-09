@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import * as FaIcons from 'react-icons/fa' 
@@ -7,6 +7,10 @@ import { SidebarData } from './SidebarData'
 import styled from 'styled-components'
 import { Box } from '@mui/material'
 import "./Sidebar.css"
+import { useSelector } from 'react-redux'
+import User from '../../../models/User'
+import { TokenState } from '../../../store/tokens/tokensReducer'
+import { buscaId } from '../../../services/Service'
 
 const Sidebar: React.FunctionComponent = () => {
     const [close, setClose] = useState(true)
@@ -74,21 +78,75 @@ const MenuItemLinks = styled(Link)`
         margin: 0 2rem;
     }
     `
+    const token = useSelector<TokenState, TokenState['tokens']>(
+        (state) => state.tokens
+      );
+      const userId = useSelector<TokenState, TokenState['id']>((state) => state.id);
+    
+      const [usuario, setUsuario] = useState<User>({
+        id: +userId,
+        foto: '',
+        nome: '',
+        usuario: '',
+        senha: '',
+        postagem: null,
+      });
+    
+      async function getUsuario() {
+        try {
+          await buscaId(`/usuarios/${usuario.id}`, setUsuario, {
+            headers: {
+              Authorization: token,
+            },
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    
+      useEffect(() => {
+        getUsuario();
+      }, []);
+    
+      useEffect(() => {
+        setUsuario({
+          ...usuario,
+          senha: ''
+        })
+      }, [usuario.usuario])
+    
+      const [confirmarSenha, setConfirmarSenha] = useState<string>('');
+    
+      function confirmSenha(event: ChangeEvent<HTMLInputElement>) {
+        setConfirmarSenha(event.target.value);
+      }
+    
+      function updateModel(event: ChangeEvent<HTMLInputElement>) {
+        setUsuario({
+          ...usuario,
+          [event.target.name]: event.target.value,
+        });
+      }
+    
+    
     return (
         <>
-            {/* <Navbar>
-                <MenuIconOpen to="#" onClick={showSidebar}>
-                    <FaIcons.FaBars />
-                </MenuIconOpen>
-            </Navbar> */}
 
             <SidebarMenu close={close}>
-                {/* <MenuIconClose to="#" onClick={showSidebar}>
-                    <FaIcons.FaTimes />
-                </MenuIconClose> */}
+            <div className="perfilBanner">
+        <div>
+            <h2>{usuario.nome}</h2>
+            <p>{usuario.usuario}</p>
+            <p>Total de postagens feitas: {usuario.postagem?.length}</p>
+        </div>
+        <img src={usuario.foto} alt={`Foto de perfil de ${usuario.nome}`} />
+        </div>
+
 <Box className="posilogoside"><img className='logoside' src="https://ik.imagekit.io/projetovoztech/vozTech-center.png?updatedAt=1685468716232" alt="Logo do projeto VozTech" /> </Box>
                 {SidebarData.map((item, index) => {
+                    
                     return (
+                        
                         <MenuItems key={index}>
                             <MenuItemLinks to={item.path}>
                                 {item.icon}

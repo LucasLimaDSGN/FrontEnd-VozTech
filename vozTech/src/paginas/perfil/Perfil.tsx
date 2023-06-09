@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import User from '../../models/User';
 import { buscaId, post, put } from '../../services/Service';
 import { toast } from 'react-toastify';
-import Cards from '../../componentes/estaticos/cards/cards';
+import Cards from '../../componentes/estaticos/cards/Cards';
 
 function Perfil() {
   const token = useSelector<TokenState, TokenState['tokens']>(
@@ -113,27 +113,21 @@ function Perfil() {
   console.log(usuario);
 
   return (
+    <Grid className="background">
     <div className="perfilContainer">
       <div className="perfilBanner">
         <div>
-          <h2>Perfil de: {usuario.nome}</h2>
+          <h2>{usuario.nome}</h2>
           <p>{usuario.usuario}</p>
           <p>Total de postagens feitas: {usuario.postagem?.length}</p>
         </div>
         <img src={usuario.foto} alt={`Foto de perfil de ${usuario.nome}`} />
       </div>
-      <div className="perfilUpdate">
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography variant="h5" style={{ margin: '0 auto' }}>
+      <Box className="formulario3">
+      <Typography variant="h5" style={{ margin: '0 auto' }} display='flex' justifyContent='center' alignSelf='center' className="atualizarperfil">
               Atualizar Perfil
             </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
+      <div className="perfilUpdate">
             <form onSubmit={atualizar}>
               <Box
                 display={'flex'}
@@ -142,6 +136,7 @@ function Perfil() {
                 gap={2}
               >
                 <TextField
+                  className="espacamento2"
                   name="nome"
                   label="Nome completo"
                   value={usuario.nome}
@@ -150,6 +145,7 @@ function Perfil() {
                   }
                 />
                 <TextField
+                  className="espacamento2"
                   name="usuario"
                   label="Endereço de e-mail"
                   disabled
@@ -159,6 +155,7 @@ function Perfil() {
                   }
                 />
                 <TextField
+                  className="espacamento2"
                   name="foto"
                   label="URL da foto"
                   value={usuario.foto}
@@ -167,6 +164,7 @@ function Perfil() {
                   }
                 />
                 <TextField
+                  className="espacamento2"
                   name="senha"
                   label="Senha"
                   type="password"
@@ -176,6 +174,7 @@ function Perfil() {
                   }
                 />
                 <TextField
+                  className="espacamento2"
                   name="confirmarSenha"
                   label="Confirmar senha"
                   type="password"
@@ -184,53 +183,13 @@ function Perfil() {
                     confirmSenha(event)
                   }
                 />
-              <Button fullWidth variant={'contained'} type='submit'>Atualizar</Button>
+              <Button fullWidth variant={'contained'} type='submit' className="btnModal espacamento">Atualizar</Button>
               </Box>
             </form>
-          </AccordionDetails>
-        </Accordion>
       </div>
-      <hr />
-      <h3 style={{ textAlign: 'center' }}>Suas postagens</h3>
-      <div className="perfilPosts">
-        {usuario.postagem?.map((posts) => (
-          <Grid
-            item
-            border={1}
-            borderRadius={2}
-            borderColor={'lightgray'}
-            p={2}
-          >
-            <Typography>Postagem:</Typography>
-            <Typography>{posts.titulo}</Typography>
-            <Typography>{posts.texto}</Typography>
-            <Avatar
-              src={usuario.foto}
-              style={{ border: '1px solid black' }}
-              alt=""
-            />
-            <Typography>
-              {new Intl.DateTimeFormat('pt-br', {
-                dateStyle: 'full',
-              }).format(new Date(posts.data))}
-            </Typography>
-            <Typography>Tema: {posts.tema?.descricao}</Typography>
-            <Box display={'flex'} gap={4}>
-              <Link to={`/formularioPostagem/${posts.id}`}>
-                <Button fullWidth variant="contained" color="primary">
-                  editar
-                </Button>
-              </Link>
-              <Link to={`/apagarPostagem/${posts.id}`}>
-                <Button fullWidth variant="contained" color="secondary">
-                  apagar
-                </Button>
-              </Link>
-            </Box>
-          </Grid>
-        ))}
-      </div>
+      </Box>
     </div>
+    </Grid>
   );
 }
 
